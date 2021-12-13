@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { observe } from 'mobx';
-import store from '../../store';
+import store from '../../services/stores/gameStore';
+import timerStore from '../../services/stores/timerStore';
 import Messages from '../Messages';
 
 import './style.scss';
 
+export const handleTimer = function() {
+    setInterval(() => timerStore.increaseTimer(), 1000)
+};
 
 const NewGameMenu = () => {
     const [isMenuOpened, setIsMenuOpened] = useState<boolean>(true);
@@ -18,23 +22,22 @@ const NewGameMenu = () => {
         store.savePlaygroundSize(playgroundSize);
         store.setIsNewMenuOpened(false);
         store.startGame();
-        setIsMenuOpened(false)
+        setIsMenuOpened(false);
+
+
+        timerStore.stopTimer();
+        timerStore.resetTimer();
+        timerStore.startTimer();
     }
 
     const incrementCounter = () => {
         const newSize = playgroundSize + 2;
-        
-        if (newSize < 12) {
-            setPlaygroundSize(playgroundSize + 2)
-        }
+        if (newSize < 12) { setPlaygroundSize(playgroundSize + 2) }
     }
 
     const decrementCounter = () => {
         const newSize = playgroundSize - 2;
-
-        if (newSize > 0) {
-            setPlaygroundSize(playgroundSize - 2)
-        }
+        if (newSize > 0) { setPlaygroundSize(playgroundSize - 2) }
     }
 
     return (

@@ -1,6 +1,6 @@
 import React, { ReactElement, useEffect } from 'react';
 import { observer } from "mobx-react";
-import store from '../store';
+import store from '../services/stores/gameStore';
 import Tile from '../components/tile/Tile';
 
 const ObservedTilesContainer: React.FC = (): ReactElement => {

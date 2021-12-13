@@ -1,5 +1,5 @@
 import { makeAutoObservable } from "mobx";
-import { ITile } from "./services/models/ITile";
+import { ITile } from "../models/ITile";
 
 const generateTiles = (playgroundSize: number): ITile[] => {
     const numberOfPairs = playgroundSize * playgroundSize;
@@ -25,7 +25,7 @@ const generateTiles = (playgroundSize: number): ITile[] => {
             value: item,
             isMatched: false,
         });
-    })
+    });
 
     return tiles;
 }
