@@ -1,0 +1,27 @@
+.main-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.playground {
+    height: auto;
+    border: 1px solid rgba($color: #1900ff, $alpha: 0.2 );
+}
+
+.game-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 3em;
+    width: 200px;
+
+    button {
+        padding: 1em;
+    }
+}
+
+.arrow-icon {
+    font-size: 36px;
+}
