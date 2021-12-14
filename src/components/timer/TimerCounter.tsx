@@ -1,5 +1,5 @@
 import { ReactElement } from "react";
-import { observer } from "mobx-react-lite";
+import { observer } from "mobx-react";
 import timerStore from "../../services/stores/timerStore";
 import { convertToHHMMSS } from "../../services/helpers/timerUtils";
 import './style.scss';

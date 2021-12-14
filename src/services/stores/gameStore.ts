@@ -1,5 +1,6 @@
 import { makeAutoObservable } from "mobx";
 import { ITile } from "../models/ITile";
+import timerStore from "./timerStore";
 
 const generateTiles = (playgroundSize: number): ITile[] => {
     const numberOfPairs = playgroundSize * playgroundSize;
@@ -56,12 +57,11 @@ class Game {
     }
 
     closeOpenedTiles() {
-        // lol, think about a better approach
         this.tiles.forEach((tile: ITile) => {
-            if (!tile.isMatched) {
+            if (tile.id === this.openedTilesIds[0] || tile.id === this.openedTilesIds[1]) {
                 tile.isOpen = false;
             }
-        })
+        });
 
         this.openedTilesIds = [];
         this.tiles = [...this.tiles];
@@ -76,7 +76,7 @@ class Game {
             if (tile.id === id) {
                 return tile;
             }
-        })[0].isMatched
+        })[0].isMatched;
     }
 
     checkIsOpenedTilesMatched() {
@@ -84,20 +84,21 @@ class Game {
             return tile.id === this.openedTilesIds[0] || tile.id === this.openedTilesIds[1]
         })
 
-        if (tiles[0].value === tiles[1].value) {
+        if (tiles.length === 2 && tiles[0].value === tiles[1].value) {
             this.tiles.forEach((tile: ITile) => {
                 if (tile.id === this.openedTilesIds[0] || tile.id === this.openedTilesIds[1]) {
-                    tile.isMatched = true
+                    tile.isMatched = true;
                 }
             })
 
             this.tiles = [...this.tiles];
             this.unmatchedTiles = this.unmatchedTiles - 2;
+
+            if (this.unmatchedTiles === 0) { timerStore.stopTimer() }
             this.openedTilesIds = [];
 
             return true
         }
-
         return false
     }
 
@@ -108,9 +109,7 @@ class Game {
                 if (tile.id === id) {
                     tile.isOpen = !tile.isOpen
                 }
-            })
-            // omg, is there are no a better solution to trigger state change to re-render? Fix later
-            this.tiles = [...this.tiles]
+            });
         }
 
         if (this.isOpenedTwoTiles()) {
@@ -121,6 +120,6 @@ class Game {
     }
 }
 
-const store = new Game();
+const gameStore = new Game();
 
-export default store;
+export default gameStore;
