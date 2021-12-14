@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react'
-import store from '../services/stores/gameStore';
+import gameStore from '../services/stores/gameStore';
 import timerStore from '../services/stores/timerStore';
 import TimerCounter from '../components/timer/TimerCounter';
 import Button from '@mui/material/Button';
@@ -8,7 +8,7 @@ import './styles/MainContainer.scss'
 
 const Sidebar: React.FC = (): ReactElement => {
     const openNewGameMenu = (): void => {
-        store.setIsNewMenuOpened(true);
+        gameStore.setIsNewMenuOpened(true);
         timerStore.stopTimer();
     }
 

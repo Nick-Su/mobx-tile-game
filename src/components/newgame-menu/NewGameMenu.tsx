@@ -1,6 +1,6 @@
 import { ReactElement, useState } from 'react';
 import { observe } from 'mobx';
-import store from '../../services/stores/gameStore';
+import gameStore from '../../services/stores/gameStore';
 import timerStore from '../../services/stores/timerStore';
 import Messages from '../Messages';
 import AnimatedIconButton from '../IconButton/AnimatedIconButton';
@@ -16,14 +16,14 @@ const NewGameMenu: React.FC = (): ReactElement => {
     const [isMenuOpened, setIsMenuOpened] = useState<boolean>(true);
     const [playgroundSize, setPlaygroundSize] = useState<number>(2);
 
-    observe(store, 'isNewGameMenuOpened', change => {
+    observe(gameStore, 'isNewGameMenuOpened', change => {
         setIsMenuOpened(!!(change.newValue))
     })
 
     const playGame = (): void => {
-        store.savePlaygroundSize(playgroundSize);
-        store.setIsNewMenuOpened(false);
-        store.startGame();
+        gameStore.savePlaygroundSize(playgroundSize);
+        gameStore.setIsNewMenuOpened(false);
+        gameStore.startGame();
         setIsMenuOpened(false);
 
         timerStore.stopTimer();
