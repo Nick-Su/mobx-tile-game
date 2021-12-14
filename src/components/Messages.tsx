@@ -11,13 +11,13 @@ const Messages: React.FC<IMessagesProps> = ({ playgroundSize }): ReactElement =>
 
         switch (playgroundSize) {
             case 2:
-                message = 'Good choice for 2-years old kid!';
+                message = 'Good choice for a 2-years old kid!';
                 break;
             case 4:
                 message = 'Beginner level'
                 break;
             case 6:
-                message = 'Feel boring?';
+                message = 'For those who feel boredom';
                 break;
             case 8:
                 message = 'Insane level';
@@ -30,7 +30,6 @@ const Messages: React.FC<IMessagesProps> = ({ playgroundSize }): ReactElement =>
         }
 
         return <p>{message}</p>
-     
     }
     return (
        <RenderMessage />

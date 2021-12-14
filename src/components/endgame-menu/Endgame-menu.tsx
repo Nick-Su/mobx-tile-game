@@ -3,7 +3,7 @@ import { observe } from 'mobx';
 import store from "../../services/stores/gameStore";
 import timerStore from "../../services/stores/timerStore";
 import { convertToHHMMSS } from "../../services/helpers/timerUtils";
-
+import AnimatedIconButton from "../IconButton/AnimatedIconButton";
 import './style.scss';
 
 const EndgameMenu: React.FC = (): ReactElement => {
@@ -29,9 +29,11 @@ const EndgameMenu: React.FC = (): ReactElement => {
                 <div className="menu">
                     <h1>Вы выиграли!</h1>
                     <h3>Ваше время {convertToHHMMSS(timerStore.secondsPassed)}</h3>
-                    <button type="button" onClick={playAgain}>
-                        <i className="playAgainIcon fas fa-redo"></i>
-                    </button>
+                    <AnimatedIconButton
+                         clickHandler={playAgain}
+                         fontAwesomeClasses="playAgainIcon fas fa-redo"
+                         btnClasses='reset-style'
+                    />
                 </div>
             </div>
             }

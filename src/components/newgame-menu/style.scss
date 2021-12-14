@@ -34,38 +34,13 @@
     }
 }
 
-.small-text {
-    font-size: 18px;
-}
-
-.reset-style {
-    /*Reset's every elements apperance*/
-    background: none repeat scroll 0 0 transparent;
-    border: medium none;
-    border-spacing: 0;
-    color: #26589F;
-    font-family: 'PT Sans Narrow',sans-serif;
-    font-size: 16px;
-    font-weight: normal;
-    line-height: 1.42rem;
-    list-style: none outside none;
-    margin: 0;
-    padding: 0;
-    text-align: left;
-    text-decoration: none;
-    text-indent: 0;
-    color: #FAAD1B;
-    cursor: pointer;
-}
-
-
 .counter-button-container {
     display: flex;
     flex-direction: column;
+    height: 70px;
+    width: 40px;
 }
 
-.play-btn {
-    margin-top: 4em;
-    padding: 1em 3em;
-    cursor: pointer;
+.arrow-container {
+    height: 50%;
 }

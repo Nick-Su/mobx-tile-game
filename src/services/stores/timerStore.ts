@@ -17,7 +17,7 @@ export class Timer {
     }
 
     startTimer() {
-        this.interval = window.setInterval(() => this.increaseTimer(), 1000)
+        this.interval = window.setInterval(() => this.increaseTimer(), 1000);
     }
 
     stopTimer() {

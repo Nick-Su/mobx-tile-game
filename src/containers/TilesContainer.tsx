@@ -16,7 +16,7 @@ const ObservedTilesContainer: React.FC = (): ReactElement => {
         const result = store.tiles.map((item) => {
             counter++
 
-            if (counter >  store.playgroundSize) {
+            if (counter > store.playgroundSize) {
                 counter = 1;
             }
             

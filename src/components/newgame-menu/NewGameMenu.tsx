@@ -1,16 +1,18 @@
-import React, { useState } from 'react';
+import { ReactElement, useState } from 'react';
 import { observe } from 'mobx';
 import store from '../../services/stores/gameStore';
 import timerStore from '../../services/stores/timerStore';
 import Messages from '../Messages';
-
+import AnimatedIconButton from '../IconButton/AnimatedIconButton';
+import Button from '@mui/material/Button';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import './style.scss';
 
 export const handleTimer = function() {
     setInterval(() => timerStore.increaseTimer(), 1000)
 };
 
-const NewGameMenu = () => {
+const NewGameMenu: React.FC = (): ReactElement => {
     const [isMenuOpened, setIsMenuOpened] = useState<boolean>(true);
     const [playgroundSize, setPlaygroundSize] = useState<number>(2);
 
@@ -24,18 +26,17 @@ const NewGameMenu = () => {
         store.startGame();
         setIsMenuOpened(false);
 
-
         timerStore.stopTimer();
         timerStore.resetTimer();
         timerStore.startTimer();
     }
 
-    const incrementCounter = () => {
+    const incrementCounter = (): void => {
         const newSize = playgroundSize + 2;
         if (newSize < 12) { setPlaygroundSize(playgroundSize + 2) }
     }
 
-    const decrementCounter = () => {
+    const decrementCounter = (): void => {
         const newSize = playgroundSize - 2;
         if (newSize > 0) { setPlaygroundSize(playgroundSize - 2) }
     }
@@ -53,19 +54,34 @@ const NewGameMenu = () => {
                             <span>{ `${playgroundSize} X ${playgroundSize}`}</span>
                         </div>
                         <div className="counter-button-container">
-                            <button 
-                                onClick={incrementCounter} 
-                                className="reset-style"
-                            >
-                                <i className="arrow-icon fas fa-chevron-up"></i>
-                            </button>
-                            <button onClick={decrementCounter} className="reset-style">
-                                <i className="arrow-icon fas fa-chevron-down"></i>
-                            </button>
+                            <div className="arrow-container">
+                                <AnimatedIconButton
+                                    clickHandler={incrementCounter}
+                                    fontAwesomeClasses="arrow-icon fas fa-chevron-up"
+                                    btnClasses='reset-style'
+                                />
+                            </div>
+
+                            <div className="arrow-container">
+                                <AnimatedIconButton
+                                    clickHandler={decrementCounter}
+                                    fontAwesomeClasses="arrow-icon fas fa-chevron-down"
+                                    btnClasses='reset-style'
+                                />
+                            </div>
                         </div>
                     </div>
-                    <Messages playgroundSize={playgroundSize}/>    
-                    <button type="button" onClick={playGame} className="play-btn">Играть!</button>
+                    <Messages playgroundSize={playgroundSize}/>
+                    <br />
+                    <Button 
+                        size='large'
+                        color='success'
+                        variant="contained"
+                        startIcon={<PlayArrowIcon />} 
+                        onClick={playGame}
+                    >
+                        Играть!
+                    </Button>
                 </div>
             </div>
         }
