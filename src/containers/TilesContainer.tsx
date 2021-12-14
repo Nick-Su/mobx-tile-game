@@ -1,4 +1,4 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement } from 'react';
 import { observer } from "mobx-react";
 import gameStore from '../services/stores/gameStore';
 import Tile from '../components/tile/Tile';

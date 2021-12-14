@@ -1,8 +1,9 @@
 import React, { ReactElement } from 'react';
 import Sidebar from './Sidebar';
-import NewGameMenu from '../components/newgame-menu/NewGameMenu';
+import NewGameMenu from '../components/menu-screens/newgame-menu/NewGameMenu';
 import TilesContainer from './TilesContainer';
-import EndgameMenu from '../components/endgame-menu/Endgame-menu';
+import EndgameMenu from '../components/menu-screens/win-menu/WinMenu';
+import GameOverMenu from '../components/menu-screens/game-over/GameOverMenu';
 import './styles/MainContainer.scss';
 
 const MainContainer: React.FC = (): ReactElement => {
@@ -16,6 +17,7 @@ const MainContainer: React.FC = (): ReactElement => {
             </div>
             <NewGameMenu />
             <EndgameMenu />
+            <GameOverMenu />
         </div>
     )
 }

@@ -5,7 +5,6 @@ interface IMessagesProps {
 }
 
 const Messages: React.FC<IMessagesProps> = ({ playgroundSize }): ReactElement => {
-
     const RenderMessage = (): ReactElement => {
         let message = '';
 
@@ -14,7 +13,7 @@ const Messages: React.FC<IMessagesProps> = ({ playgroundSize }): ReactElement =>
                 message = 'Good choice for a 2-years old kid!';
                 break;
             case 4:
-                message = 'Beginner level'
+                message = 'Beginner level';
                 break;
             case 6:
                 message = 'For those who feel boredom';
@@ -23,7 +22,7 @@ const Messages: React.FC<IMessagesProps> = ({ playgroundSize }): ReactElement =>
                 message = 'Insane level';
                 break;
             case 10:
-                message = 'You are either a genius or just a madman. Good luck!'
+                message = 'You are either a genius or just a madman. Good luck!';
                 break;
             default:
                 break;
