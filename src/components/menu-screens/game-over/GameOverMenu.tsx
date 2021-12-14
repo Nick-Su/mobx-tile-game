@@ -5,7 +5,7 @@ import AnimatedIconButton from '../../AnimatedIconButton/AnimatedIconButton';
 
 import './style.scss';
 
-const OloMenu: React.FC = (): ReactElement => {
+const Menu: React.FC = (): ReactElement => {
     return (
         <>
             {
@@ -26,7 +26,7 @@ const OloMenu: React.FC = (): ReactElement => {
     )
 }
 
-const ObservedGameOverMenu = observer(OloMenu);
+const ObservedGameOverMenu = observer(Menu);
 
 const GameOverMenu: React.FC = (): ReactElement => {
     return <ObservedGameOverMenu />   
