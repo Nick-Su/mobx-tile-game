@@ -1,9 +1,9 @@
 import { ReactElement, useState } from 'react';
 import { observe } from 'mobx';
-import gameStore from '../../services/stores/gameStore';
-import timerStore from '../../services/stores/timerStore';
-import Messages from '../Messages';
-import AnimatedIconButton from '../IconButton/AnimatedIconButton';
+import gameStore, { GameMode } from '../../../services/stores/gameStore';
+import timerStore from '../../../services/stores/timerStore';
+import Messages from '../../Messages';
+import AnimatedIconButton from '../../AnimatedIconButton/AnimatedIconButton';
 import Button from '@mui/material/Button';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import './style.scss';
@@ -20,15 +20,26 @@ const NewGameMenu: React.FC = (): ReactElement => {
         setIsMenuOpened(!!(change.newValue))
     })
 
-    const playGame = (): void => {
+    const playTrainingMode = (): void => {
+        gameStore.savePlaygroundSize(playgroundSize);
+        gameStore.setIsNewMenuOpened(false);
+        gameStore.startGame();
+        setIsMenuOpened(false);
+        gameStore.setGameMode(GameMode.Training);
+        timerStore.stopTimer();
+        timerStore.resetTimer();
+        timerStore.startTimer();
+    }
+
+    const playCountdownMode = (): void => {
         gameStore.savePlaygroundSize(playgroundSize);
         gameStore.setIsNewMenuOpened(false);
         gameStore.startGame();
         setIsMenuOpened(false);
 
+        gameStore.setGameMode(GameMode.Countdown);
         timerStore.stopTimer();
-        timerStore.resetTimer();
-        timerStore.startTimer();
+        timerStore.startCountdownTimer();
     }
 
     const incrementCounter = (): void => {
@@ -72,8 +83,29 @@ const NewGameMenu: React.FC = (): ReactElement => {
                         </div>
                     </div>
                     <Messages playgroundSize={playgroundSize}/>
+                    <div className="playmode-btn-container">
+                        <Button 
+                            size='large'
+                            color='secondary'
+                            variant="contained"
+                            startIcon={<PlayArrowIcon />} 
+                            onClick={playCountdownMode}
+                        >
+                            На время
+                        </Button>
+                        <Button 
+                            size='large'
+                            color='warning'
+                            variant="contained"
+                            startIcon={<PlayArrowIcon />} 
+                            onClick={playTrainingMode}
+                        >
+                            Тренировка
+                        </Button>
+                    </div>
+
                     <br />
-                    <Button 
+                    {/* <Button 
                         size='large'
                         color='success'
                         variant="contained"
@@ -81,7 +113,7 @@ const NewGameMenu: React.FC = (): ReactElement => {
                         onClick={playGame}
                     >
                         Играть!
-                    </Button>
+                    </Button> */}
                 </div>
             </div>
         }

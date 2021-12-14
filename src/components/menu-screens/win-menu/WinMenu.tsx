@@ -1,12 +1,12 @@
 import React, { ReactElement } from "react";
 import { observer } from "mobx-react";
-import gameStore from "../../services/stores/gameStore";
-import timerStore from "../../services/stores/timerStore";
-import { convertToHHMMSS } from "../../services/helpers/timerUtils";
-import AnimatedIconButton from "../IconButton/AnimatedIconButton";
+import gameStore from "../../../services/stores/gameStore";
+import timerStore from "../../../services/stores/timerStore";
+import { convertToHHMMSS } from "../../../services/helpers/timerUtils";
+import AnimatedIconButton from "../../AnimatedIconButton/AnimatedIconButton";
 import './style.scss';
 
-const EndGameMenu: React.FC = (): ReactElement => {
+const Menu: React.FC = (): ReactElement => {
     return (
         <>
             {
@@ -28,7 +28,7 @@ const EndGameMenu: React.FC = (): ReactElement => {
     )
 }
 
-const ObservedEndGameMenu = observer(EndGameMenu);
+const ObservedEndGameMenu = observer(Menu);
 
 const EndgameMenu: React.FC = (): ReactElement => {
     return <ObservedEndGameMenu />

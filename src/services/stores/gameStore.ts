@@ -31,16 +31,22 @@ const generateTiles = (playgroundSize: number): ITile[] => {
     return tiles;
 }
 
+export enum GameMode {
+    Countdown = 'Countdown',
+    Training = 'Training',
+}
+
 class Game {
     isNewGameMenuOpened: boolean = false;
     playgroundSize: number = 4;
     tiles: ITile[] = [];
     openedTilesIds: number[] = [];
-    isTilesClickable: boolean = true;
     unmatchedTiles: number = 8;
+    gameMode: string = GameMode.Training;
+    isGameOver: boolean = false;
 
     constructor() {
-        makeAutoObservable(this)
+        makeAutoObservable(this);
     }
 
     setIsNewMenuOpened(value: boolean) {
@@ -76,6 +82,8 @@ class Game {
             if (tile.id === id) {
                 return tile;
             }
+
+            return undefined
         })[0].isMatched;
     }
 
@@ -117,6 +125,16 @@ class Game {
                 setTimeout(() => this.closeOpenedTiles(), 700)
             }
         }
+    }
+
+    setGameMode(gameMode: string) {
+        this.isGameOver = false;
+        this.gameMode = gameMode;
+        console.log(this.gameMode)
+    }
+
+    setIsGameOver(value: boolean) {
+        this.isGameOver = value;
     }
 }
 
