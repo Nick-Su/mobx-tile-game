@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import Sidebar from './Sidebar';
+import Sidebar from '../components/Sidebar';
 import NewGameMenu from '../components/menu-screens/newgame-menu/NewGameMenu';
 import TilesContainer from './TilesContainer';
 import EndgameMenu from '../components/menu-screens/win-menu/WinMenu';
