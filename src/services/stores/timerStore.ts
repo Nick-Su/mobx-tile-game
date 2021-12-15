@@ -1,7 +1,24 @@
 import { makeAutoObservable } from "mobx";
 import gameStore from "./gameStore";
 
-export class Timer {
+const getSeconds = (): number => {
+    switch (gameStore.playgroundSize) {
+        case 2:
+            return 5;
+        case 4:
+            return 45;
+        case 6:
+            return 300;
+        case 8:
+            return 450;
+        case 10:
+            return 600;
+        default:
+            return 30
+    }
+}
+
+class Timer {
     secondsPassed: number = 0;
     private interval: any; 
 
@@ -16,10 +33,11 @@ export class Timer {
     decreaseTimer() {
         if (this.secondsPassed > 0) {
             this.secondsPassed--;
-        } else {
-            this.stopTimer();
-            gameStore.setIsGameOver(true);
+            return;
         }
+
+        this.stopTimer();
+        gameStore.setIsGameOver(true);
     }
 
     resetTimer() {
@@ -35,7 +53,7 @@ export class Timer {
     }
 
     startCountdownTimer() {
-        this.secondsPassed = 4;
+        this.secondsPassed = getSeconds();
         this.interval = window.setInterval(() => this.decreaseTimer(), 1000);
     }
 }
