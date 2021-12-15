@@ -1,12 +1,13 @@
 import { makeAutoObservable } from "mobx";
 import gameStore from "./gameStore";
+import recordStore from "./recordStore";
 
 const getSeconds = (): number => {
     switch (gameStore.playgroundSize) {
         case 2:
             return 5;
         case 4:
-            return 45;
+            return 60;
         case 6:
             return 300;
         case 8:
@@ -14,7 +15,7 @@ const getSeconds = (): number => {
         case 10:
             return 600;
         default:
-            return 30
+            return 30;
     }
 }
 
@@ -49,7 +50,8 @@ class Timer {
     }
 
     stopTimer() {
-        window.clearInterval(this.interval)
+        window.clearInterval(this.interval);
+        recordStore.saveBestTime(this.secondsPassed);
     }
 
     startCountdownTimer() {

@@ -130,7 +130,6 @@ class Game {
     setGameMode(gameMode: string) {
         this.isGameOver = false;
         this.gameMode = gameMode;
-        console.log(this.gameMode)
     }
 
     setIsGameOver(value: boolean) {

@@ -26,7 +26,7 @@ const NewGameMenu: React.FC = (): ReactElement => {
         gameStore.startGame();
         setIsMenuOpened(false);
         gameStore.setGameMode(GameMode.Training);
-        timerStore.stopTimer();
+        // timerStore.stopTimer();
         timerStore.resetTimer();
         timerStore.startTimer();
     }
@@ -103,17 +103,6 @@ const NewGameMenu: React.FC = (): ReactElement => {
                             Тренировка
                         </Button>
                     </div>
-
-                    <br />
-                    {/* <Button 
-                        size='large'
-                        color='success'
-                        variant="contained"
-                        startIcon={<PlayArrowIcon />} 
-                        onClick={playGame}
-                    >
-                        Играть!
-                    </Button> */}
                 </div>
             </div>
         }
