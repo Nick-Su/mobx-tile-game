@@ -11,7 +11,7 @@ const checkIsBestTime = (currentSeconds: number): boolean => {
     
     // if localstorage is totally empty
     if (!rawTimeRescords) {
-        const recordData = [{boardSize: gameStore.playgroundSize, bestTime: currentSeconds}];
+        const recordData = [{boardSize: gameStore.boardSize, bestTime: currentSeconds}];
         localStorage.setItem('timeRecords', JSON.stringify(recordData));
         return true;
     }
@@ -19,7 +19,7 @@ const checkIsBestTime = (currentSeconds: number): boolean => {
     let timeRecords = JSON.parse(rawTimeRescords);
 
     for (let i = 0; i < timeRecords.length; i++) {
-        if (timeRecords[i].boardSize === gameStore.playgroundSize) {
+        if (timeRecords[i].boardSize === gameStore.boardSize) {
             if (timeRecords[i].bestTime > currentSeconds) {
                 timeRecords[i].bestTime = currentSeconds;
                 localStorage.setItem('timeRecords', JSON.stringify(timeRecords));
@@ -30,7 +30,7 @@ const checkIsBestTime = (currentSeconds: number): boolean => {
     }
 
     const newRecord: ITimeRecord = {
-        boardSize: gameStore.playgroundSize,
+        boardSize: gameStore.boardSize,
         bestTime: currentSeconds
     }
 

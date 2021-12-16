@@ -3,9 +3,9 @@ import gameStore from "./gameStore";
 import recordStore from "./recordStore";
 
 const getSeconds = (): number => {
-    switch (gameStore.playgroundSize) {
+    switch (gameStore.boardSize) {
         case 2:
-            return 5;
+            return 10;
         case 4:
             return 60;
         case 6:
@@ -51,7 +51,7 @@ class Timer {
 
     stopTimer() {
         window.clearInterval(this.interval);
-        recordStore.saveBestTime(this.secondsPassed);
+       // recordStore.saveBestTime(this.secondsPassed);
     }
 
     startCountdownTimer() {

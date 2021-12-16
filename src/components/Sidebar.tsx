@@ -5,9 +5,12 @@ import TimerCounter from './timer/TimerCounter';
 import Button from '@mui/material/Button';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
-const Sidebar: React.FC = (): ReactElement => {
+interface SidebarProps {
+    setIsNewGameMenuOpened: (value: boolean) => void;
+}
+const Sidebar: React.FC<SidebarProps> = ({ setIsNewGameMenuOpened }): ReactElement => {
     const openNewGameMenu = (): void => {
-        gameStore.setIsNewMenuOpened(true);
+        setIsNewGameMenuOpened(true);
         timerStore.stopTimer();
     }
 

@@ -1,11 +1,14 @@
 import React, { ReactElement } from 'react';
-import { observer } from "mobx-react";
 import gameStore from '../../../services/stores/gameStore';
 import AnimatedIconButton from '../../AnimatedIconButton/AnimatedIconButton';
 
 import './style.scss';
 
-const Menu: React.FC = (): ReactElement => {
+interface GameOverMenuProps {
+    setIsNewGameMenuOpened: (value: boolean) => void;
+}
+
+const GameOverMenu: React.FC<GameOverMenuProps> = ({ setIsNewGameMenuOpened }): ReactElement => {
     return (
         <>
             {
@@ -14,7 +17,7 @@ const Menu: React.FC = (): ReactElement => {
                         <div className="menu">
                             <h1>Время вышло!</h1>
                             <AnimatedIconButton
-                                clickHandler={() => { gameStore.setIsNewMenuOpened(true)}}
+                                clickHandler={() => setIsNewGameMenuOpened(true) }
                                 fontAwesomeClasses="playAgainIcon fas fa-redo"
                                 btnClasses='reset-style'
                             />
@@ -24,12 +27,6 @@ const Menu: React.FC = (): ReactElement => {
             }
         </>
     )
-}
-
-const ObservedGameOverMenu = observer(Menu);
-
-const GameOverMenu: React.FC = (): ReactElement => {
-    return <ObservedGameOverMenu />   
 }
 
 export default GameOverMenu;

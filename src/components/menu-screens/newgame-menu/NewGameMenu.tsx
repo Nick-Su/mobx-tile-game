@@ -12,34 +12,45 @@ export const handleTimer = function() {
     setInterval(() => timerStore.increaseTimer(), 1000)
 };
 
-const NewGameMenu: React.FC = (): ReactElement => {
+interface NewGameMenuProps {
+    setIsYouWin: (value: boolean) => void;
+    isNewGameMenuOpened: boolean;
+    setIsNewGameMenuOpened: (value: boolean) => void;
+}
+const NewGameMenu: React.FC<NewGameMenuProps> = ({ setIsYouWin, isNewGameMenuOpened, setIsNewGameMenuOpened }): ReactElement => {
     const [isMenuOpened, setIsMenuOpened] = useState<boolean>(true);
     const [playgroundSize, setPlaygroundSize] = useState<number>(2);
 
-    observe(gameStore, 'isNewGameMenuOpened', change => {
-        setIsMenuOpened(!!(change.newValue))
-    })
+    // observe(gameStore, 'isNewGameMenuOpened', change => {
+    //     setIsMenuOpened(!!(change.newValue))
+    // })
 
     const playTrainingMode = (): void => {
         gameStore.savePlaygroundSize(playgroundSize);
-        gameStore.setIsNewMenuOpened(false);
+        //gameStore.setIsNewMenuOpened(false);
         gameStore.startGame();
         setIsMenuOpened(false);
         gameStore.setGameMode(GameMode.Training);
-        // timerStore.stopTimer();
+
         timerStore.resetTimer();
         timerStore.startTimer();
+
+        setIsNewGameMenuOpened(false);
+        setIsYouWin(false);
     }
 
     const playCountdownMode = (): void => {
         gameStore.savePlaygroundSize(playgroundSize);
-        gameStore.setIsNewMenuOpened(false);
+        //gameStore.setIsNewMenuOpened(false);
         gameStore.startGame();
         setIsMenuOpened(false);
 
         gameStore.setGameMode(GameMode.Countdown);
         timerStore.stopTimer();
         timerStore.startCountdownTimer();
+
+        setIsNewGameMenuOpened(false);
+        setIsYouWin(false);
     }
 
     const incrementCounter = (): void => {
@@ -55,7 +66,7 @@ const NewGameMenu: React.FC = (): ReactElement => {
     return (
         <>
         {
-            isMenuOpened &&
+            isNewGameMenuOpened &&
             <div className="menu-container">
                 <div className="menu">
                     <h1>Новая игра</h1>
