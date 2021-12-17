@@ -1,14 +1,14 @@
 import React, { ReactElement } from 'react';
 import gameStore from '../../../services/stores/gameStore';
 import AnimatedIconButton from '../../AnimatedIconButton/AnimatedIconButton';
-
+import { observer } from 'mobx-react-lite';
 import './style.scss';
 
 interface GameOverMenuProps {
     setIsNewGameMenuOpened: (value: boolean) => void;
 }
 
-const GameOverMenu: React.FC<GameOverMenuProps> = ({ setIsNewGameMenuOpened }): ReactElement => {
+const Menu: React.FC<GameOverMenuProps> = ({setIsNewGameMenuOpened}): ReactElement => {
     return (
         <>
             {
@@ -27,6 +27,12 @@ const GameOverMenu: React.FC<GameOverMenuProps> = ({ setIsNewGameMenuOpened }): 
             }
         </>
     )
+}
+
+const ObservedGameOverMenu = observer(Menu);
+
+const GameOverMenu: React.FC<GameOverMenuProps> = ({ setIsNewGameMenuOpened }): ReactElement => {
+    return <ObservedGameOverMenu setIsNewGameMenuOpened={setIsNewGameMenuOpened}/>
 }
 
 export default GameOverMenu;

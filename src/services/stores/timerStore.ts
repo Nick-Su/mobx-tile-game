@@ -1,6 +1,5 @@
 import { makeAutoObservable } from "mobx";
 import gameStore from "./gameStore";
-import recordStore from "./recordStore";
 
 const getSeconds = (): number => {
     switch (gameStore.boardSize) {
@@ -51,7 +50,6 @@ class Timer {
 
     stopTimer() {
         window.clearInterval(this.interval);
-       // recordStore.saveBestTime(this.secondsPassed);
     }
 
     startCountdownTimer() {

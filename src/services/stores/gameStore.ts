@@ -6,13 +6,9 @@ export enum GameMode {
 }
 
 class Game {
-    // isNewGameMenuOpened: boolean = false;
-    isGameStarted: boolean = false;
     boardSize: number = 4;
-
     gameMode: string = GameMode.Training;
     isGameOver: boolean = false;
-    isYouWin: boolean = false;
 
     constructor() {
         makeAutoObservable(this);
@@ -27,13 +23,8 @@ class Game {
         this.isGameOver = value;
     }
 
-    savePlaygroundSize(size: number) {
+    saveBoardSize(size: number) {
         this.boardSize = size;
-    }
-
-    startGame() {
-        this.isYouWin = false;
-        this.isGameStarted = true;
     }
 }
 

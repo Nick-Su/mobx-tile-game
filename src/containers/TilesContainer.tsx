@@ -1,5 +1,4 @@
-import React, { ReactElement, useState, useEffect, useLayoutEffect} from 'react';
-import { observe } from "mobx";
+import React, { ReactElement, useState, useEffect} from 'react';
 import gameStore from '../services/stores/gameStore';
 import timerStore from '../services/stores/timerStore';
 import recordStore from '../services/stores/recordStore';
@@ -15,35 +14,28 @@ import {
 
 interface TilesContainerProps {
     setIsYouWin: (value: boolean) => void;
+    isGameStarted: boolean;
 }
 
-const TilesContainer: React.FC<TilesContainerProps> = ({setIsYouWin}): ReactElement => {
+const TilesContainer: React.FC<TilesContainerProps> = ({setIsYouWin, isGameStarted }): ReactElement => {
     const [tiles, setTiles] = useState<ITile[]>([]);
     const [openedTiles, setOpenedTiles] = useState<number[]>([]);
     const [unmatchedTiles, setUnmatchedTiles] = useState<number>(1);
 
     let nextRowPointer = 0;
 
-    observe(gameStore, 'isGameStarted', change => {
-        if (change.newValue) {
-            setTiles(generateTiles(gameStore.boardSize))
-            setUnmatchedTiles(gameStore.boardSize * gameStore.boardSize);
-        }
-    });
-
-    useLayoutEffect(() => {
-    }, [tiles])
-
     useEffect(() => {
-        if (gameStore.isGameStarted) {
+        if (isGameStarted) {
             setTiles(generateTiles(gameStore.boardSize))
             setUnmatchedTiles(gameStore.boardSize * gameStore.boardSize);
+        } else {
+            setTiles([]);
+            setOpenedTiles([]);
         }
-    }, [gameStore.isGameStarted]);
+    }, [isGameStarted]);
 
     useEffect(() => {
         if (unmatchedTiles === 0) {
-            console.log('You win');
             timerStore.stopTimer();
             recordStore.saveBestTime(timerStore.secondsPassed);
             setIsYouWin(true)
@@ -86,7 +78,7 @@ const TilesContainer: React.FC<TilesContainerProps> = ({setIsYouWin}): ReactElem
                     if (nextRowPointer > gameStore.boardSize) { nextRowPointer = 1; }
                     
                     return (
-                        <React.Fragment key={tile.id}> { unmatchedTiles }
+                        <React.Fragment key={tile.id}>
                             <Tile
                                 isOpen={tile.isOpen}
                                 value={tile.value}

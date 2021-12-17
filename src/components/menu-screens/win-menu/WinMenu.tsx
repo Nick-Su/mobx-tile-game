@@ -1,6 +1,4 @@
 import React, { ReactElement } from "react";
-import { observer } from "mobx-react";
-import gameStore from "../../../services/stores/gameStore";
 import timerStore from "../../../services/stores/timerStore";
 import { convertToHHMMSS } from "../../../services/helpers/timerUtils";
 import AnimatedIconButton from "../../AnimatedIconButton/AnimatedIconButton";
