@@ -1,5 +1,4 @@
-import { ReactElement, useState } from 'react';
-import { observe } from 'mobx';
+import { ReactElement, useEffect, useState } from 'react';
 import gameStore, { GameMode } from '../../../services/stores/gameStore';
 import timerStore from '../../../services/stores/timerStore';
 import Messages from '../../Messages';
@@ -12,31 +11,35 @@ export const handleTimer = function() {
     setInterval(() => timerStore.increaseTimer(), 1000)
 };
 
-const NewGameMenu: React.FC = (): ReactElement => {
-    const [isMenuOpened, setIsMenuOpened] = useState<boolean>(true);
+interface NewGameMenuProps {
+    isNewGameMenuOpened: boolean;
+    setIsYouWin: (value: boolean) => void;
+    setIsNewGameMenuOpened: (value: boolean) => void;
+    setIsGameStarted: (value: boolean) => void;
+}
+const NewGameMenu: React.FC<NewGameMenuProps> = ({ setIsYouWin, isNewGameMenuOpened, setIsNewGameMenuOpened, setIsGameStarted }): ReactElement => {
     const [playgroundSize, setPlaygroundSize] = useState<number>(2);
+    
+    useEffect(() => {
+        setIsGameStarted(false)
+    }, [])
 
-    observe(gameStore, 'isNewGameMenuOpened', change => {
-        setIsMenuOpened(!!(change.newValue))
-    })
 
     const playTrainingMode = (): void => {
-        gameStore.savePlaygroundSize(playgroundSize);
-        gameStore.setIsNewMenuOpened(false);
-        gameStore.startGame();
-        setIsMenuOpened(false);
+        setIsGameStarted(true);
+        setIsNewGameMenuOpened(false);
+        setIsYouWin(false);
+        gameStore.saveBoardSize(playgroundSize);
         gameStore.setGameMode(GameMode.Training);
-        // timerStore.stopTimer();
         timerStore.resetTimer();
         timerStore.startTimer();
     }
 
     const playCountdownMode = (): void => {
-        gameStore.savePlaygroundSize(playgroundSize);
-        gameStore.setIsNewMenuOpened(false);
-        gameStore.startGame();
-        setIsMenuOpened(false);
-
+        setIsGameStarted(true);
+        setIsNewGameMenuOpened(false);
+        setIsYouWin(false);
+        gameStore.saveBoardSize(playgroundSize);
         gameStore.setGameMode(GameMode.Countdown);
         timerStore.stopTimer();
         timerStore.startCountdownTimer();
@@ -55,7 +58,7 @@ const NewGameMenu: React.FC = (): ReactElement => {
     return (
         <>
         {
-            isMenuOpened &&
+            isNewGameMenuOpened &&
             <div className="menu-container">
                 <div className="menu">
                     <h1>Новая игра</h1>
